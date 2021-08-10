@@ -8,24 +8,42 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="canvas"></div>
+    <canvas id="canvas" width="100" height="100"></canvas>
     <script>
-        canvas.onmousemove = (e) => {
+        //将canvas的宽高变为屏幕的宽高
+        var canvas = document.getElementById("canvas");
+        canvas.width = document.documentElement.clientWidth
+        canvas.height = document.documentElement.clientHeight
+        let ctx = canvas.getContext("2d");
+
+        let painting = false
+
+        ctx.fillStyle = "black";
+        ctx.strokeStyle = 'none'
+        //ctx.fillRect (10, 10, 55, 50);
+
+        canvas.onmousedown = () => {
+            painting = true
+        }
+
+        canvas.onmousemove = (e) =>{
             console.log(e.clientX)
             console.log(e.clientY)
-            let div = document.createElement('div')
-            div.style.position = 'absolute'
-            div.style.left = e.clientX + 'px'
-            div.style.top = e.clientY + 'px'
-            //div.style.border = '1px solid red'
-            div.style.width = '6px'
-            div.style.height = '6px'
-            div.style.marginLeft = '-3px '
-            div.style.marginTop = '-3px '
-            div.style.borderRadius = '50%'
-            div.style.background = 'black'
-            canvas.appendChild(div)
+            if(painting === true){
+                ctx.fillRect (e.clientX -5, e.clientY -5, 10, 10);
+            }
+            else{
+                console.log('什么都不做')
+            }
         }
+
+        canvas.onmouseup = () => {
+            painting = false
+        }
+
+        //ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+        //ctx.fillRect (30, 30, 55, 50);c
+
     </script>
 
 </body>
